@@ -1,3 +1,8 @@
+# [Link do toturial](https://galaxies.dev/react-supabase)
+```
+https://galaxies.dev/react-supabase
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
