@@ -3,20 +3,17 @@ import { supabase } from '../supabaseClient';
 
 function Login() {
 	const [loading, setLoading] = useState(false);
-	const [email, setEmail] = useState('saimon@devdactic.com');
 	const [msg, setMsg] = useState('');
 
-	const handleLogin = async (e: any) => {
-		e.preventDefault();
-
+	const handleGoogleLogin = async () => {
 		try {
 			setLoading(true);
-			const { error } = await supabase.auth.signInWithOtp({ email });
+			const { error } = await supabase.auth.signInWithOAuth({
+				provider: 'google',
+			});
 
 			if (error) {
 				setMsg(error.message);
-			} else {
-				setMsg('Check your emails now!');
 			}
 		} catch (error: any) {
 			setMsg(error.error_description || error.message);
@@ -28,22 +25,13 @@ function Login() {
 	return (
 		<div>
 			<h1>Supabase + React = 🚀</h1>
-			<p className="description">Sign in via magic link with your email below</p>
+			<p className="description">Sign in with Google below</p>
 			{loading ? (
-				'Sending magic link...'
+				'Redirecting to Google...'
 			) : (
-				<form onSubmit={handleLogin}>
-					<label htmlFor="email">Email:</label>
-					<input
-						id="email"
-						className="input"
-						type="email"
-						placeholder="Your email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-					<button className="button">Get Magic Link</button>
-				</form>
+				<button className="button" onClick={handleGoogleLogin}>
+					Sign in with Google
+				</button>
 			)}
 			<p className="message">{msg}</p>
 		</div>
